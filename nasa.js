@@ -32,37 +32,39 @@ con.connect(function(err) {
  
   console.log('connected as id ' + con.threadId);
 });
-
 */
+
+
 //  Function for adding API data to table
 //nasaSearch = function() {
   request(solarSearch, { json: true }, (err, res, body) => {
   if (err) { return console.log(err); }
-  function indexof(arr, val) {
-    var indexes = [], i;
-    for(i = 0; i < arr.length; i++)
-        if (arr[i] === val)
-            indexes.push(i);
-    return indexes;
-}
-
-  console.log(body[indexof(indexes)].beginTime);
+    var index;
+    for (index = 0; index < body.length; ++index) {
+      console.log(
+        body[index].beginTime,
+        body[index].endTime,
+        body[index].peakTime,
+        body[index].classType
+        );
+  };  
+    });
   /*var sql = "INSERT INTO solar (start, end, peak) VALUES (body.beginTime, body.endTime, body.peak)";
     con.query(sql, function (err, result) {
       if (err) throw err;
       console.log("1 record inserted");
     });*/
-  });
+
 
 
 /*
 // Cron job for checking nasa API for new objects
 cron.schedule('0 1 * * *', () => {
-  console.log('Runing a job at 01:00 at America/Sao_Paulo timezone');
+  console.log('Runing a job at 01:00 at America/Los_Angeles');
   nasaSearch();
 }, {
   scheduled: true,
-  timezone: "America/Sao_Paulo"
+  timezone: "America/Los_Angeles"
 });
 con.end()
 */
