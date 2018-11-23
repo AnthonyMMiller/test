@@ -1,7 +1,14 @@
+DROP DATABASE IF EXISTS ra_db;
+
 CREATE DATABASE ra_db;
 
-CREATE TABLE solar(
-start VARCHAR(40),
-end VARCHAR(40),
-peak VARCHAR(40)
+USE ra_db;
+
+CREATE TABLE solar_data(
+start DATE,
+end DATE,
+peak DATE,
+class VARCHAR(40)
 );
+
+SELECT * FROM solar_data;

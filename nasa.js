@@ -14,8 +14,9 @@ const request = require('request');
 const cron = require('node-cron');
 const express = require('express');
 let app = express();
-/*
-// Connection to database
+var fs = require('fs');
+
+//Connection to database
 let mysql = require('mysql');
 const con = mysql.createConnection({
   host     : 'localhost',
@@ -32,7 +33,7 @@ con.connect(function(err) {
  
   console.log('connected as id ' + con.threadId);
 });
-*/
+
 
 
 //  Function for adding API data to table
@@ -41,20 +42,33 @@ con.connect(function(err) {
   if (err) { return console.log(err); }
     var index;
     for (index = 0; index < body.length; ++index) {
-      console.log(
-        body[index].beginTime,
-        body[index].endTime,
-        body[index].peakTime,
-        body[index].classType
-        );
-  };  
-    });
-  /*var sql = "INSERT INTO solar (start, end, peak) VALUES (body.beginTime, body.endTime, body.peak)";
-    con.query(sql, function (err, result) {
-      if (err) throw err;
-      console.log("1 record inserted");
-    });*/
 
+       var content = JSON.stringify(body);
+      fs.writeFile("test.json", content, function(err) {
+        if (err) {
+            console.log(err);
+        }});
+
+     // console.log(
+       //var jsonData =  body;
+     //  body[index].beginTime,
+    //   body[index].endTime,
+    //   body[index].peakTime,
+  //    body[index].classType);
+ // var body = jsonData
+//var beginTime = JSON.stringify(body[index].beginTime);
+//var peak = JSON.parse(body[index].peakTime);
+//var classType =  body[index].classType;
+
+var sql = "INSERT INTO solar_data (start, end, peak, class) VALUES (key, endTime, peak, classType)";
+    con.query(sql, function (err, result) {
+     if (err) throw err;
+     console.log("1 record inserted");
+        });
+       // con.end();
+      
+      }
+    });
 
 
 /*
@@ -66,6 +80,7 @@ cron.schedule('0 1 * * *', () => {
   scheduled: true,
   timezone: "America/Los_Angeles"
 });
-con.end()
+
 */
+
 

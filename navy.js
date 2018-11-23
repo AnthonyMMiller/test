@@ -13,6 +13,7 @@ const request = require('request');
 const cron = require('node-cron');
 const express = require('express');
 let app = express();
+var fs = require('fs');
 /*
 // Connection to database
 let mysql = require('mysql');
@@ -39,7 +40,11 @@ con.connect(function(err) {
   request(moonSearch, { json: true }, (err, res, body) => {
   if (err) { return console.log(err); }
    console.log(body)
-  
+   var content = JSON.stringify(body);
+   fs.writeFile("navy.json", content, function(err) {
+     if (err) {
+         console.log(err);
+     }});
   /* var index;
     for (index = 0; index < body.length; ++index) {
       console.log(
